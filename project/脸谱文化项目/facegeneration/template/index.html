@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>脸谱生成</title>
+
+
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- 引入html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <!-- 引入css文件 -->
+    <link rel="stylesheet" href="../resource/css/style.css">
+    <link rel="stylesheet" href="../resource/css/slide_image.css">
+</head>
+
+
+<body>
+    <!--按滚动页面的方式来展示页面内容-->
+    <div class="mycontainer" id="mycontainer">
+
+        <!-- slides1 用来展示互动互动页面的一些介绍信息 -->
+        <div class="slides slides1" tabindex="0" id="slides1">
+            <div class="slides1-photo">
+
+                <img src="../resource/image/京剧背景.jpg" alt="">
+            </div>
+            <div class="myshadow"></div>
+            <div class="myshadow-inner"></div>
+
+            <div id="preference" class="introduction">
+                给自己喜欢的角色生成脸谱！
+            </div>
+            <div class="words">
+                <span style="color: red;">“</span>人心隔肚皮,千人千面<span style="color: red">”</span>
+            </div>
+        </div>
+        <!-- slides2 用来展示一些经典角色的脸谱,一共展示3个 -->
+        <div class="slides slides2" tabindex="1" id="slides2">
+
+            <div class="myshadow"></div>
+            <div class="myshadow-inner"></div>
+
+            <div class="slides2-title">
+                来看看一些经典人物的脸谱吧！
+            </div>
+
+
+            <div class="background-photo"><img src="../resource/image/背景素材1.png" alt=""></div>
+            <div class="background-photo1"><img src="../resource/image/赵云.png" alt=""></div>
+
+            <div class="card-box">
+
+
+                <div class="mycard">
+                    <div class="photo2 trans"><img src="../resource/image/face/红脸.png" alt=""></div>
+                    <div class="photo1"><img src="../resource/image/face/关羽.png" alt=""></div>
+                    <h1>红脸</h1>
+                    <h2 class="trans">关羽</h2>
+                    <p class="trans">
+                        关羽，字云长，是中国三国时期蜀汉的一位杰出将领和武将，也是忠勇义烈之人。</p>
+                    <a class="trans" href="">了解更多</a>
+                </div>
+
+                <div class="mycard">
+                    <div class="photo2 trans"><img src="../resource/image/face/白脸.png" alt=""></div>
+                    <div class="photo1"><img src="../resource/image/face/曹操.png" alt=""></div>
+                    <h1>白脸</h1>
+                    <h2 class="trans">曹操</h2>
+                    <p class="trans">曹操，字孟德，是中国三国时期魏国的建立者和杰出的政治家、军事家,生性多疑。</p>
+                    <a class="trans" href="">了解更多</a>
+                </div>
+
+                <div class="mycard">
+                    <div class="photo2 trans"><img src="../resource/image/face/黄脸.png" alt=""></div>
+                    <div class="photo1"><img src="../resource/image/face/典韦.png" alt=""></div>
+                    <h1>黄脸</h1>
+                    <h2 class="trans">典韦</h2>
+                    <p class="trans">典韦，字仲康，是中国三国时期魏国的一位杰出武将，以勇猛无畏而著称。</p>
+                    <a class="trans" href="">了解更多</a>
+                </div>
+            </div>
+        </div>
+        <!-- 用于展示脸谱生成的接口 -->
+        <div class="slides slides3" tabindex="2" id="slides3">
+            <div class="myshadow"></div>
+            <div class="myshadow-inner"></div>
+            <!-- 这里我们将会做一个滑动图片窗口，具体思路如下
+            1.使用shell来承载所有内容
+            2.使用ul来承载所有图片
+            3.使用ul来展示小点
+            4.使用button和button-left,button-right来实现按钮 -->
+
+            <!-- 用于展示slide3的背景效果 -->
+
+            <div class="slides3-background-image-fix" id="image6">
+                <img src="../resource/image/背景素材3.png" alt="">
+            </div>
+
+            <div class="slides3-background">
+                <div class="slides3-background-image" style="top: 100px; left: 100px; width: 300px; height: 450px;"
+                    id="image1">
+                    <img src="../resource/image/面具1.png" alt="">
+                </div>
+                <div class="slides3-background-image" style="top: 620px; left: 0px; width: 200px; height: 350px;"
+                    id="image2">
+                    <img src="../resource/image/面具2.png" alt="">
+                </div>
+                <div class="slides3-background-image" style="top: 620px; left: 500px; width: 300px; height: 350px;"
+                    id="image3">
+                    <img src="../resource/image/面具3.png" alt="">
+                </div>
+                <div class="slides3-background-image" style="top: 0px; left: 1000px; width: 300px; height: 350px;"
+                    id="image4">
+                    <img src="../resource/image/面具4.png" alt="">
+                </div>
+                <div class="slides3-background-image" style="top: 250px; left: 1500px; width: 350px; height: 450px;"
+                    id="image5">
+                    <img src="../resource/image/面具5.png" alt="">
+                </div>
+
+            </div>
+
+            <div class="shell">
+
+                <ul class="images" id="images">
+                    <li class="image"></li>
+                    <li class="image"></li>
+                    <li class="image"></li>
+                    <li class="image"></li>
+                    <li class="image"></li>
+                </ul>
+
+                <ul class="shell-bottom">
+                    <li class="shell-bottom-dot" id="dot0"></li>
+                    <li class="shell-bottom-dot" id="dot1"></li>
+                    <li class="shell-bottom-dot" id="dot2"></li>
+                    <li class="shell-bottom-dot" id="dot3"></li>
+                    <li class="shell-bottom-dot" id="dot4"></li>
+                </ul>
+
+                <div class="buttons">
+                    <div class="button-left" id="left_button">&lt;</div>
+                    <div class="button-right" id="right_button">&gt;</div>
+                </div>
+            </div>
+
+            <div class="slides3-title" style="z-index: 1;">
+                发挥你的想象力，给你熟悉的人物生成脸谱！
+            </div>
+
+            <!-- 这里用来存储待展示的角色生成卡片 -->
+            <div class="mycard mycard-generation" id="generation_card">
+                <div class="photo2 trans" id=""><img id="generation_photo" src="../resource/image/face/红脸.png" alt="">
+                </div>
+                <div class="photo3 trans"><img src="../resource/image/边框.png" alt=""></div>
+                <div class="photo1"><img src="../resource/image/信封1.png" alt=""></div>
+                <h1 id="generation_face">红脸</h1>
+                <h2 id="generation_charactor" class="trans">关羽</h2>
+                <p id="generation_introduction" class="trans">
+                    关羽，字云长，是中国三国时期蜀汉的一位杰出将领和武将，也是忠勇义烈之人。</p>
+                <a id="generation_time" class="trans" href="">时间</a>
+            </div>
+
+            <div class="mycard mycard-generation backup" id="generation_card1">
+                <div class="photo2 trans" id=""><img id="generation_photo1" src="../resource/image/face/红脸.png" alt="">
+                </div>
+                <div class="photo3 trans"><img src="../resource/image/边框.png" alt=""></div>
+                <div class="photo1"><img src="../resource/image/信封1.png" alt=""></div>
+                <h1 id="generation_face1">红脸</h1>
+                <h2 id="generation_charactor1" class="trans">关羽</h2>
+                <p id="generation_introduction1" class="trans">
+                    关羽，字云长，是中国三国时期蜀汉的一位杰出将领和武将，也是忠勇义烈之人。</p>
+                <a id="generation_time1" class="trans" href="">时间</a>
+            </div>
+
+
+            <!-- Button trigger modal -->
+            <a href="#modal-window" class="modal-button" style="z-index: 1;">生成</a>
+
+            <!-- Modal,因为我们只想让模态框占满slides3，所以写在slides3下面 -->
+            <div class="modal-window" id="modal-window">
+                <!-- 模态框主体 -->
+                <div>
+                    <!-- 模态框修饰图片 -->
+                    <div class="modal-photo">
+                        <img src="../resource/image/模态背景.png" alt="">
+                    </div>
+
+                    <!-- 模态框内容 -->
+                    <div class="modal-content">
+                        <!-- 模态框标题 -->
+                        <div class="title">为心中所想角色召唤脸谱！<a href="#" class="times" id="exit1">&times;</a></div>
+                        <div class="body">
+                            <!-- 姓名输入 -->
+                            <input type="text" id="generation_id" placeholder="请输入角色姓名">
+                            <!-- 选择介绍 -->
+                            <div class="body-text" id="body_text">请选择人物的核心属性</div>
+                            <!-- 属性容器 -->
+                            <div id="buttonContainer" class="button-container"></div>
+                        </div>
+                        <!-- 存放按钮 -->
+                        <div class="bottom">
+                            <a class="reset" id="save">保存</a>
+                            <a class="reset" id="reset">重置</a>
+                            <a href="#" class="exit" id="exit">退出</a>
+                            <a id="generate_button" class="generate-button">生成</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="module">
+        // import { FaceData } from "/resource/js/face_data/base.js";
+        // import { FaceType } from "/resource/js/face_data/base.js";
+        // import { AttributionData } from "/resource/js/attribution_data/base.js";
+        // import { SetFocus } from "/resource/js/utils/set_focus.js"
+
+        class Attribution {
+            constructor(part, attribution) {
+                this.part = part; // 属于A1，A2，A3其中的一个属性
+                this.attribution = attribution; // 具体的属性名字，如：忠义
+
+            }
+        }
+
+        class AttributionData {
+            constructor() {
+                this.A = [[], [], []];
+                // 红脸
+                this.addAttribution(0, "忠勇义烈");
+                this.addAttribution(1, "耿直");
+                this.addAttribution(2, "血性");
+                // 蓝脸
+                this.addAttribution(0, "桀骜不驯");
+                this.addAttribution(1, "有心计");
+                this.addAttribution(2, "刚直");
+                // 黑脸，包青天
+                this.addAttribution(0, "公正刚直");
+                this.addAttribution(1, "铁面无私");
+                this.addAttribution(2, "正义");
+                // 黑脸，张飞
+                this.addAttribution(0, "勇猛无比");
+                this.addAttribution(1, "直率");
+                this.addAttribution(2, "莽撞");
+                // 白脸
+                this.addAttribution(0, "阴险狡诈");
+                this.addAttribution(1, "多疑");
+                this.addAttribution(2, "刚愎自用");
+                // 绿脸
+                this.addAttribution(0, "顽强骁勇");
+                this.addAttribution(1, "暴躁");
+                this.addAttribution(2, "勇敢");
+                // 黄脸
+                this.addAttribution(0, "枭勇凶猛");
+                this.addAttribution(1, "威猛");
+                this.addAttribution(2, "彪悍");
+                // 紫脸
+                this.addAttribution(0, "刚正稳练");
+
+
+            }
+
+            addAttribution(part, attribution) {
+
+                this.A[part].push(new Attribution(part, attribution));
+            }
+        }
+
+        class Node {
+            constructor(id, attribution) {
+                this.attribution = attribution; // face_type 用来表示该节点的属性,可以是原点,A,或者是FaceType
+                this.id = id; // id 用来唯一表示一个Node
+                this.edge = []; // edge 里面存储连接的别的Node的id
+                this.edge_cnt = 0;
+            }
+
+            // 连接一个节点
+            add_edge(id) {
+                this.edge[this.edge_cnt++] = id;
+            }
+        }
+
+        export const FaceType = {
+    red: "红脸",
+    blue: "蓝脸",
+    black: "黑脸",
+    white: "白脸",
+    green: "绿脸",
+    yellow: "黄脸",
+    purple: "紫脸",
+    gold: "gold", // 神仙
+    silver: "silver", // 怪物
+}
+
+        class FaceData {
+            constructor() {
+                this.nodes = [];
+                this.cnt = 0;
+                this.nodes[this.cnt] = new Node(this.cnt, "origin");
+                this.cnt++;
+
+                this.intro_black = "黑色脸谱通常代表坚毅、刚烈、威猛的性格。这种脸谱多用于扮演勇猛的武将或武打角色，展现出悍不畏敌、果断果敢的形象。黑脸谱的角色通常在戏中扮演重要的正面或反面角色。"
+                this.intro_green = "绿色脸谱通常代表稳重、沉着、忠诚的角色。这种脸谱多用于扮演军师、谋士、智者等，展现出深思熟虑、足智多谋的形象。";
+                this.intro_purple = "在中国传统艺术的脸谱中，紫色脸谱通常代表神秘、高贵和不可侵犯的角色。演员扮演紫色脸谱的角色往往是仙女、神仙或贵族，展现出超凡脱俗的氛围。紫色脸谱的设计精致，色彩深沉，为舞台上的角色赋予了神秘而庄重的气质。"
+                this.intro_red = "红色脸谱通常代表忠诚、刚毅、英勇的正面角色。这种脸谱常见于英雄或正义人物，体现了积极向上的形象。红脸谱的演员通常扮演有权有势的正面角色，如将军、国王等。";
+                this.intro_white = "白脸谱是代表狡猾、奸诈、狠毒的反派角色的标志。这种脸谱常见于扮演权谋之士、反叛者、阴谋家等，通过白脸谱，演员能够生动地表现出狡黠狠毒的性格。";
+                this.intro_yellow = "黄色脸谱通常代表残暴、狂傲、蛮横的形象。这种脸谱多用于扮演霸道的反派角色，通过黄脸谱能够生动地表达出其傲慢、残暴的本性。";
+                this.intro_blue = "蓝色脸谱通常代表勇猛、豪迈、侠义的形象。这种脸谱多用于扮演侠客、义士等正直而豪放的角色，展现出英勇无畏、仗义执言的特质。";
+            
+
+                this.insert("忠勇义烈", "耿直", "血性", FaceType.red);
+                this.insert("桀骜不驯", "有心计", "刚直", FaceType.blue);
+                this.insert("公正刚直", "铁面无私", "正义", FaceType.black);
+                this.insert("勇猛无比", "直率", "莽撞", FaceType.black);
+                this.insert("阴险狡诈", "多疑", "刚愎自用", FaceType.white);
+                this.insert("顽强骁勇", "暴躁", "勇敢", FaceType.green);
+                this.insert("枭勇凶猛", "威猛", "彪悍", FaceType.yellow);
+                this.insert("刚正稳练", "威猛", "彪悍", FaceType.purple);
+
+
+                this.keyList = {
+                    "忠勇义烈": "红脸",
+                    "桀骜不驯": "蓝脸",
+                    "公正刚直": "黑脸",
+                    "勇猛无比": "黑脸",
+                    "阴险狡诈": "白脸",
+                    "顽强骁勇": "绿脸",
+                    "枭勇凶猛": "黄脸",
+                    "刚正稳练": "紫脸",
+                }
+
+            }
+
+            init() {
+
+            }
+
+            // 一组向量插入对应的type
+            insert(A1, A2, A3, type) {
+                // 从原点开始，寻找A1
+                let id = 0;
+                for (let i = 0; i < 4; i++) {
+                    let A = "";
+                    if (i == 0) {
+                        A = A1;
+                    } else if (i == 1) {
+                        A = A2;
+                    } else if (i == 2) {
+                        A = A3;
+                    } else if (i == 3) {
+                        A = type;
+                    }
+                    let t = this.search(id, A);
+                    if (t == false) { // 没有找到，则插入属性为A1的Node
+                        // 先创建一个新的Node，id为cnt，Attribution为A
+                        this.nodes[this.cnt] = new Node(this.cnt, A);
+                        this.nodes[id].add_edge(this.cnt);
+                        id = this.cnt;
+                        this.cnt++;
+                    } else { // 则说明t接收到一个id，这个id就是对应A的Node的id
+                        id = t;
+                    }
+                }
+
+            }
+
+            query(A1, A2, A3) {
+
+                let id = 0; // 从原点开始出发
+                for (let i = 0; i < 4; i++) {
+                    let A = "";
+                    if (i == 0) {
+                        A = A1;
+                    } else if (i == 1) {
+                        A = A2;
+                    } else if (i == 2) {
+                        A = A3;
+                    }
+
+                    if (i == 3) {
+                        let face = this.search(id, "face");
+                        if (face == null) return this.queryKey(A1);
+                        else return face;
+                    }
+
+                    let t = this.search(id, A);
+                    if (t === false) {
+                        return this.queryKey(A1);
+                    }
+                    id = t;
+                }
+
+                return face; // 返回 
+
+            }
+
+            queryKey(A1) {
+
+
+                for (let key in this.keyList) {
+                    if (key === A1) {
+                        return this.keyList[key];
+                    }
+                }
+
+            }
+
+            // 查找对应id往前连接的类型为type的Node
+            search(id, type) {
+
+                let face = [];
+                let face_cnt = 0;
+                for (let i = 0; i < this.nodes[id].edge_cnt; i++) {
+                    let next_id = this.nodes[id].edge[i];
+                    if (type === "face") {
+                        face[face_cnt++] = this.nodes[next_id].attribution;
+                    } else if (this.nodes[next_id].attribution === type) {
+                        return next_id;
+                    }
+                }
+
+                if (type === "face" && face_cnt !== 0) {
+                    return face;
+                }
+                // 没有找到
+                return false;
+
+            }
+
+
+        }
+
+        /* 以上为js文件的定义 */
+        
+        // const set_focus = new SetFocus ();
+        // set_focus.set_focus();
+        let face_data = new FaceData ();
+        let attribution_data = new AttributionData ();
+
+        let body_text = document.getElementById("body_text")
+        let generate_button = document.getElementById("generate_button");
+        let cnt_select = 0;
+        let reset = document.getElementById("reset");
+        let exit = document.getElementById ("exit");
+        let exit1 = document.getElementById("exit1");
+        // 维护一个属性数组，根据用户的选择去除其中的一些属性
+        let attributions = [];
+        let selectA = [];
+        let cnt = 0;
+
+
+        exit.addEventListener("click" , function () {
+            generation_card.style.zIndex= "-99"
+            reset.click();
+        })
+        exit1.addEventListener("click" , function () {
+            generation_card.style.zIndex= "-99"
+            reset.click();
+        })
+
+
+
+        for (let i = 0;i < face_data.cnt;i ++)
+            console.log(face_data.nodes[i].attribution , "edge_cnt为" , face_data.nodes[i].edge_cnt);
+
+        // 以下是自动随机生成属性按钮的程序
+        
+        
+        for (let i = 0;i < 3;i ++) {
+            for (let j = 0;j < attribution_data.A[i].length ; j ++) {
+                attributions[cnt ++] = attribution_data.A[i][j];
+            }
+        }
+
+        console.log(attributions);
+
+        /*
+            点击了属性变迁该做的事情有
+            1.将点击属性对应的part从attributions移除然后重新进行渲染
+            2.将选择的属性添加到selectA中对应的位置
+            3.如果选择完所有part的属性则可以提交输入查看结果
+        */
+
+        const aBtnFunction = (event) => {  
+            cnt_select ++;
+            console.log(attributions[0]);
+            let target = event.target;
+            let part =  -1;
+            const str = target.textContent
+            // 将点击的属性加入selectA中
+            for (let i = 0;i < cnt;i ++) {
+                if (attributions[i].attribution === str) {
+                    selectA[attributions[i].part] = attributions[i].attribution;
+                }
+            }
+            // 寻找对应part的属性
+            for (let i = 0;i < cnt;i ++) {
+                if (attributions[i].attribution === str) {
+                    
+                    part = attributions[i].part;
+                    console.log(part);
+                    break;
+                }
+            }
+            // 移除关于等于part的所有属性
+            for (let k = 0;k < 10;k ++)
+            {
+                for (let i = 0;i < cnt;i ++) {
+                    if (attributions[i].part === part) {
+                        attributions.splice(i , 1);
+                        cnt --;
+                    }
+                }
+            }
+            // 重新对buttonContainer进行渲染
+            buttonContainer.innerHTML = "";
+            
+            addButton();
+
+            // 更改body_text的文本内容
+            if (buttonContainer.innerHTML != "") {
+                body_text.textContent = "请选择其他次要属性"
+            } else { // 如果重新渲染后属性为空，则让用户进行生成操作
+                body_text.textContent = "你已经选择完了所有属性，来看看结果吧"
+                generate_button.style.visibility = "visible";
+                buttonContainer.appendChild(generate_button);
+            }
+
+            
+            
+        }
+
+        // 将取得的属性放进模态框里面的buttonContainer
+        const buttonContainer = document.getElementById("buttonContainer");
+
+        const addButton = () => {
+            // 如果当前的selectA为空的话，说明我们正在选择第一个核心属性，所以我们只需要展示part1的属性即可
+            for (let i = 0;i < cnt;i ++) {
+                
+                let aBtn = document.createElement("button");
+                aBtn.textContent = attributions[i].attribution;
+                aBtn.className = "btn btn-primary";
+                aBtn.addEventListener("click" , aBtnFunction);
+                // 如果满足条件再添加
+                if (cnt_select === 0 && attributions[i].part === 0)
+                {
+                    buttonContainer.appendChild (aBtn);
+                    console.log(selectA[0] , attributions[i].part);
+                } else if (cnt_select !== 0)  {
+                    buttonContainer.appendChild (aBtn);
+                }
+            }
+        }
+
+        addButton ();
+
+        // 处理生成按钮
+        let face = "";
+        generate_button.addEventListener("click" , function () {
+            console.log(selectA);
+            face = face_data.query (selectA[0] , selectA[1] , selectA[2]);
+            console.log("生成的脸谱为"  , face);
+        })
+
+        
+        // 设置聚焦
+
+        // 获取需要控制的组件
+        const mycontainer = document.getElementById("mycontainer");
+        const slides1 = document.getElementById("slides1");
+        const slides2 = document.getElementById("slides2");
+        const slides3 = document.getElementById("slides3");
+        let tabindex = 0;
+        slides1.classList.add("focus");
+
+        // 分别获取5个slides3-background-image
+        let background_image = [];
+        background_image[0] = document.getElementById("image1");
+        background_image[1] = document.getElementById("image2");
+        background_image[2] = document.getElementById("image3");
+        background_image[3] = document.getElementById("image4");
+        background_image[4] = document.getElementById("image5");
+        background_image[5] = document.getElementById("image6");
+        
+
+        window.addEventListener("wheel", (event) => {
+            event.preventDefault();
+        }, { passive: false });
+        
+        const set_slides_index = () => {
+            if (tabindex === 0) {
+                slides1.classList.add("focus");
+                slides2.classList.remove("focus");
+                slides3.classList.remove("focus");
+
+                remove_img_focus();
+            } else if (tabindex === 1) {
+                slides1.classList.remove("focus");
+                slides2.classList.add("focus");
+                slides3.classList.remove("focus");
+
+                remove_img_focus();
+            } else if (tabindex === 2) {
+                slides1.classList.remove("focus");
+                slides2.classList.remove("focus");
+                slides3.classList.add("focus");
+
+                // 在这里引用函数让每个面具按照不同步调获得focus状态
+                set_img_focus();
+            }
+        }
+
+        const remove_img_focus = () => {
+            let timeout = 300; // 设置初始时延
+            for (let i = 0;i < 6;i ++) {
+                setTimeout(() => {
+                    background_image[i].classList.remove("focus");
+                }, timeout);
+                console.log(background_image[i]);
+
+                timeout += 300;
+            }
+        }
+
+        const set_img_focus = () => {
+            let timeout = 300; // 设置初始时延
+            for (let i = 0;i < 6;i ++) {
+                setTimeout(() => {
+                    background_image[i].classList.add("focus");
+                }, timeout);
+                console.log(background_image[i]);
+
+                timeout += 300;
+            }
+        }
+
+        const wheel_event = (event) => {
+
+
+            if (event.deltaY > 0) { // 
+                setTimeout(() => {
+                    mycontainer.scrollBy({
+                        top: 100,
+                        left: 0,
+                        behavior: "smooth",
+                    })
+                    if (tabindex < 2)
+                        tabindex++;
+                    set_slides_index();
+                }, 100)
+
+
+            } else {
+                setTimeout(() => {
+                    mycontainer.scrollBy({
+                        top: -100,
+                        left: 0,
+                        behavior: "smooth",
+                    })
+                    if (tabindex > 0)
+                        tabindex--;
+                    set_slides_index();
+                }, 100)
+
+            }
+
+            // 移除监听事件
+            window.removeEventListener("wheel" , wheel_event);
+            setTimeout(function () {
+                window.addEventListener("wheel", wheel_event , { passive: false });
+            } , 500)
+        }
+
+
+        window.addEventListener("wheel", wheel_event , { passive: false })
+
+        // 为reset设置初始化函数
+        reset.addEventListener("click" , function () {
+            generation_card.style.zIndex= "-99";
+            face_data = new FaceData ();
+            attribution_data = new AttributionData();
+            
+            attributions = [];
+            selectA = [];
+            cnt = 0;
+            cnt_select = 0;
+            body_text.textContent = "请选择人物的核心属性";
+            for (let i = 0;i < 3;i ++) {
+            for (let j = 0;j < attribution_data.A[i].length ; j ++) {
+                attributions[cnt ++] = attribution_data.A[i][j];
+                
+                console.log("重置后的part为" , attribution_data.A[i][j].part);
+            }
+
+            buttonContainer.innerHTML = "";
+            addButton();
+        }
+        })
+
+        let index = 0;
+        let auto_slide;
+        let images = document.getElementById("images");
+        let left_button = document.getElementById("left_button");
+        let right_button = document.getElementById("right_button");
+        let dots = [];
+        
+        dots.push(document.getElementById("dot0"));
+        dots.push(document.getElementById("dot1"));
+        dots.push(document.getElementById("dot2"));
+        dots.push(document.getElementById("dot3"));
+        dots.push(document.getElementById("dot4"));
+
+        const add = () => {
+            if (index === 4) {
+                index = 0;
+            } else {
+                index ++;
+            }
+        }
+
+        const desc = () => {
+            if (index === 0) {
+                index = 4;
+            } else {
+                index --;
+            }
+        }
+
+        const position = () => {
+            // 根据当前的index将images定位到正确的位置，通过修改images的left属性实现这个功能
+            images.style.left = -index * 100 + "%"
+        }
+
+        const set_dot_light = () => {
+            for (let i = 0;i < dots.length;i ++) {
+                if (index === i) {
+                    dots[i].style.backgroundColor = "aliceblue";
+                } else {
+                    dots[i].style.backgroundColor = "rgb(120, 123, 126)";
+                }
+            }
+        }
+
+        const start_slide = () => {
+            auto_slide = setInterval(() => {
+                add();
+                position();
+                set_dot_light();
+            } , 3000)
+        }
+
+        // 开启滚动
+        start_slide();
+
+        // 设置按钮
+        left_button.addEventListener("click" , () => {
+            desc();
+            position();
+            clearInterval(auto_slide);
+            set_dot_light();
+            start_slide();
+        })
+
+        right_button.addEventListener("click" , () => {
+            add();
+            position();
+            clearInterval(auto_slide);
+            set_dot_light();
+            start_slide();
+        })
+
+        // 设置dot
+        for (let i = 0;i < dots.length;i ++) {
+            dots[i].addEventListener("click" , () => {
+                index = i;
+                position ();
+                set_dot_light();
+                clearInterval(auto_slide);
+                start_slide();
+            })
+        }
+
+        // 获取生成卡片的标签
+        let generation_face = document.getElementById("generation_face");
+        let generation_charactor = document.getElementById("generation_charactor");
+        let generation_introduction = document.getElementById("generation_introduction");
+        let generation_photo = document.getElementById("generation_photo");
+        let generation_id = document.getElementById("generation_id");
+        let generation_time = document.getElementById("generation_time");
+        let generation_card = document.getElementById("generation_card");
+
+        let imageData = null;
+        let save = document.getElementById("save");
+        let preference = document.getElementById("preference");
+
+        let generation_face1 = document.getElementById("generation_face1");
+        let generation_charactor1 = document.getElementById("generation_charactor1");
+        let generation_introduction1 = document.getElementById("generation_introduction1");
+        let generation_photo1 = document.getElementById("generation_photo1");
+        let generation_id1 = document.getElementById("generation_id1");
+        let generation_time1 = document.getElementById("generation_time1");
+        let generation_card1 = document.getElementById("generation_card1");
+        
+
+
+
+
+
+        // 给生成按钮设置函数
+        generate_button.addEventListener("click" , () => {
+            console.log(face);
+            // 将face里面的内容展示到buttonContainer里面
+            let face_str = "";
+            for (let i of face) {
+                console.log(i);
+                face_str += i;
+            }
+
+            buttonContainer.innerHTML = "";
+            console.log(face_str);
+            // buttonContainer.textContent = face_str;
+            let t = document.createElement("div");
+            t.textContent = face_str;
+            let a = document.createElement("a");
+            a.textContent = "了解更多";
+            
+            
+            a.classList.add("button-container-a");
+
+            // 在这里生成对应的人物卡片
+            generation_face.textContent = face_str;
+            generation_charactor.textContent = generation_id.value;
+            
+            generation_face1.textContent = face_str;
+            generation_charactor1.textContent = generation_id.value;
+            
+            let image_path = "../resource/image/face/"; 
+            image_path += face_str + ".png";
+
+            generation_photo.src = image_path;
+            generation_photo1.src = image_path;
+
+            // 修改introduction
+            if (face_str === "黑脸") {
+                generation_introduction.textContent = face_data.intro_black;
+                generation_introduction1.textContent = face_data.intro_black;
+            } else if (face_str === "紫脸") {
+                generation_introduction.textContent = face_data.intro_purple;
+                generation_introduction1.textContent = face_data.intro_purple;
+            } else if (face_str === "绿脸") {
+                generation_introduction.textContent = face_data.intro_green;
+                generation_introduction1.textContent = face_data.intro_green;
+            } else if (face_str === "白脸") {
+                generation_introduction.textContent = face_data.intro_white;
+                generation_introduction1.textContent = face_data.intro_white;
+            } else if (face_str === "黄脸") {
+                generation_introduction.textContent = face_data.intro_yellow;
+                generation_introduction1.textContent = face_data.intro_yellow;
+            } else if (face_str === "蓝脸") {
+                generation_introduction.textContent = face_data.intro_blue;
+                generation_introduction1.textContent = face_data.intro_blue;
+            } else if (face_str === "红脸") {
+                generation_introduction.textContent = face_data.intro_red;
+                generation_introduction1.textContent = face_data.intro_red;
+            }
+
+
+            html2canvas(generation_card1, {
+                
+                onrendered: function(canvas) {
+
+                    console.log("html2canvas");
+                    // 将canvas转换为图像数据
+                    imageData = canvas.toDataURL("image/png");
+
+
+
+
+
+                    // 可以将imageData直接显示在页面上，或者通过其他方式处理
+                    // 例如，创建一个新的图像元素并将其添加到页面上
+
+                    // var img = document.createElement("img");
+                    // img.src = imageData;
+                    // document.body.appendChild(img);
+
+                    // 或者，将图像数据发送到服务器进行保存等操作
+                    // 例如使用 AJAX 请求发送 imageData
+
+                    save.href = imageData;
+                    save.download = "save.png";
+                    
+                    a.href = imageData;
+                    a.download = "脸谱生成.png";
+                    }
+            });
+
+
+
+
+            a.href = imageData;
+            console.log(imageData);
+            a.download = "脸谱生成.png";
+
+            buttonContainer.appendChild(t);
+            buttonContainer.appendChild(a);
+
+            // 创建一个 Date 对象，它将自动设置为当前时间
+            var currentDate = new Date();
+
+            // 使用 Date 对象的方法来获取年、月、日、小时、分钟和秒数
+            var year = currentDate.getFullYear();
+            var month = currentDate.getMonth() + 1; // 月份从 0 开始，因此需要加 1
+            var day = currentDate.getDate();
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            var seconds = currentDate.getSeconds();
+
+            // 根据需要添加零填充
+            month = (month < 10 ? "0" : "") + month;
+            day = (day < 10 ? "0" : "") + day;
+            hours = (hours < 10 ? "0" : "") + hours;
+            minutes = (minutes < 10 ? "0" : "") + minutes;
+            seconds = (seconds < 10 ? "0" : "") + seconds;
+
+            // 将日期和时间文本表示为字符串
+            var dateTimeText = "生成日期:"  + year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+
+            generation_time.textContent = dateTimeText;
+            generation_time1.textContent = dateTimeText;
+
+            generation_card.style.zIndex = "999";
+            
+        })
+
+
+
+        html2canvas(generation_card, {
+                onrendered: function(canvas) {
+
+                    console.log("html2canvas");
+                    // 将canvas转换为图像数据
+                    imageData = canvas.toDataURL("image/png");
+                    console.log(imageData);
+
+                    // 可以将imageData直接显示在页面上，或者通过其他方式处理
+                    // 例如，创建一个新的图像元素并将其添加到页面上
+
+                    // var img = document.createElement("img");
+                    // img.src = imageData;
+                    // document.body.appendChild(img);
+
+                    // 或者，将图像数据发送到服务器进行保存等操作
+                    // 例如使用 AJAX 请求发送 imageData
+                }
+        });
+
+
+
+    
+    
+        
+
+        
+
+        
+        
+
+        
+
+
+
+
+
+    </script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"> -->
+
+
+</body>
+
+</html>

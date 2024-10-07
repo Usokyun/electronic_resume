@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>进度条卡片展示</title>
+    <style>
+        /* 卡片样式 */
+        .card {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            color: #333;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        /* 标题样式 */
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* 进度条的容器样式 */
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        /* 自定义进度条 */
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        .progress-fill {
+            background-color: #4caf50;
+            height: 100%;
+            border-radius: 10px;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        /* 标签样式 */
+        .progress-label {
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* 标签悬停动画 */
+        .progress-label:hover {
+            color: #4caf50;
+            transition: color 0.3s ease;
+        }
+
+        /* 动态效果 */
+        .card:hover .progress-fill {
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="title">项目名称：作品 A</div>
+
+        <!-- 满意度进度条 -->
+        <div class="progress-container">
+            <div class="progress-label">满意度</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 85%;"></div> <!-- 进度条 -->
+            </div>
+        </div>
+
+        <!-- 消耗时间进度条 -->
+        <div class="progress-container">
+            <div class="progress-label">消耗时间</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%;"></div> <!-- 进度条 -->
+            </div>
+        </div>
+
+        <!-- 获得成就进度条 -->
+        <div class="progress-container">
+            <div class="progress-label">获得成就</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%;"></div> <!-- 进度条 -->
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

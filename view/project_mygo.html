@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目介绍页面</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            animation: fadeIn 1s ease;
+
+            margin: 70px;
+
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            margin-top: 0px;
+            width: 85%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            /* 增加左右卡片之间的间距 */
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 左侧部分 */
+        .details {
+            width: 30%;
+            padding: 10px;
+
+            flex: 1;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            color: #333;
+            animation: popUp 0.5s ease-in-out;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 3px;
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 3px;
+        }
+
+        .cover img {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            margin-bottom: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .cover img:hover {
+            transform: scale(1.05);
+        }
+
+        .tags {
+            margin: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tags span {
+            background-color: #ffcc80;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 0.9em;
+            color: #333;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .tags span:hover {
+            background-color: #ffd54f;
+            transform: translateY(-3px);
+        }
+
+
+
+
+        .date {
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* 右侧主体内容 */
+        .content {
+            flex: 3;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            color: #333;
+            animation: popUp 0.5s ease-in-out;
+        }
+
+        .project-description {
+            margin-bottom: 20px;
+        }
+
+        .project-description h2 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .project-description p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .project-images {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .project-images img {
+            width: 48%;
+            margin: 1%;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-images img:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* 进度条的容器样式 */
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        /* 自定义进度条 */
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        .progress-fill {
+            background-color: #4caf50;
+            height: 100%;
+            border-radius: 10px;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        /* 标签样式 */
+        .progress-label {
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* 标签悬停动画 */
+        .progress-label:hover {
+            color: #4caf50;
+            transition: color 0.3s ease;
+        }
+
+        /* 动态效果 */
+        .card:hover .progress-fill {
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- 左侧部分：项目封面、标签、满意度、创建时间等 -->
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
+            <div class="card">
+                <h2 class="section-title">项目详情</h2>
+                <div class="cover">
+                    <img style= "object-fit: cover; padding: 1px; border-style: solid; border-width: 1px;
+                    " src="../project/迷星叫/迷叫星封面.png" alt="项目封面图片">
+                </div>
+                <div class="label" style="font-weight: bolder; display: flex; justify-content: center;
+                ">迷星叫PV</div>
+
+            </div>
+
+            <div class="card">
+
+
+                <h2 class="section-title">标签</h2>
+                <div class="tags">
+                    <span>二次元</span>
+                    <span>美术</span>
+                    <span>设计</span>
+                    <span>美少女</span>
+                    <span>AE剪辑</span>
+                </div>
+
+            </div>
+
+            <div class="card">
+                <!-- 满意度进度条 -->
+                <div class="progress-container">
+                    <div class="progress-label">满意度</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%;"></div> <!-- 进度条 -->
+                    </div>
+                </div>
+
+                <!-- 消耗时间进度条 -->
+                <div class="progress-container">
+                    <div class="progress-label">消耗时间</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 95%;"></div> <!-- 进度条 -->
+                    </div>
+                </div>
+
+                <!-- 获得成就进度条 -->
+                <div class="progress-container">
+                    <div class="progress-label">获得成就</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;"></div> <!-- 进度条 -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card">
+                <h2 class="section-title">创建时间</h2>
+                <div style="width: 100%; height: 100px;">
+
+                    <div class="loader">
+                        <div class="square" id="sq1"></div>
+                        <div class="square" id="sq2"></div>
+                        <div class="square" id="sq3"></div>
+                        <div class="square" id="sq4"></div>
+                        <div class="square" id="sq5"></div>
+                        <div class="square" id="sq6"></div>
+                        <div class="square" id="sq7"></div>
+                        <div class="square" id="sq8"></div>
+                        <div class="square" id="sq9"></div>
+                    </div>
+
+                </div>
+                <div>
+                    <p>2023年12月25日</p>
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+        <!-- 右侧部分：项目简介和图片展示 -->
+        <div style="flex: 3; display: flex; flex-direction: column; gap: 15px;">
+
+            <div class="card">
+                <h2 class="section-title">项目简介</h2>
+                <div class="project-description">
+                    <p>
+                        &ensp;&ensp;&ensp;&ensp;你说的对，但是MyGo是一部重力系二次元美少女乐队番，在里面你将扮演一名叫做千早爱音的吉他手，在一个名叫霓虹的地方四处寻找伙伴最终组建一辈子乐队。
+                        <br>
+                        &ensp;&ensp;&ensp;&ensp;迷星叫是其中我很喜欢的一首歌，它展现了高松灯在迷茫中不断挣扎的情绪。这引发了我的共鸣，所以我通过AE制作剪辑了这部PV
+                        <br>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title">项目图片</h2>
+                <div class="project-images" style="display: flex; flex-wrap: wrap;  border-width: 2px; 
+                border-color: rgb(108, 192, 231);  border-style:dotted; border-radius: 20px; margin: 20px;
+                padding: 20px;">
+                    <img src="../project/迷星叫/迷叫星封面.png" alt="项目图片1" style="object-fit: cover;">
+                    <img src="../project/迷星叫/灯_指.png" style="object-fit: cover;" alt="项目图片2">
+                    <img src="../project/迷星叫/迷星叫.png" alt="项目图片3">
+                    <img src="../project/迷星叫/迷星叫1.png" alt="项目图片4">
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title">项目展示</h2>
+                <div class="project-description">
+                    <p>这是一个剪辑作品，所以你可以直接观看它！</p>
+                    <div style="display: flex; justify-content: center;">
+                        <video style="width: 100%;" controls>
+                            <source src="../project/迷星叫/11月30日.mp4" type="video/mp4">
+                            您的浏览器不支持视频标签。
+                        </video>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+/* 初始化 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* body 用来存放card，其展示类型为flex，让三个card都可以做到居中展示 */
+
+body {
+    /* width默认为100%，我们让height不满屏幕 */
+    width: 100vw;
+    height: 100vh;
+    /* 子物体的布局设置 */
+    display: flex;
+    /* 改变主轴方向 */
+    flex-direction: row;
+    /* 沿着主轴排布 */
+    align-items: center;
+    /* 沿着副轴排布 */
+    justify-content: center;
+    /* 设置背景渐变 */
+    background: linear-gradient(200deg, rgb(53, 132, 146), rgb(22, 82, 194));
+
+
+}
+
+/* card 用来存放人物的所有信息，我们需要对其设置恰当的长和宽 */
+
+.mycard {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    background-color: gray;
+    margin: 20px;
+
+    /* 调整card的布局为flex，让所有子物体都从上到下进行排布 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 设置文本颜色 */
+    color: aliceblue;
+    /* 添加标签阴影 */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    /* 给卡片添加圆弧 */
+    border-radius: 20px;
+    /* flex布局中的子物体如果在视窗大小不够时会被挤压，这里设置不被挤压 */
+    flex-shrink: 0;
+
+    overflow: hidden;
+}
+
+/* img 的object-fit设置为cover，在不改变图片比例的情况下裁剪图片 */
+.mycard>.photo>img {
+    /* 将其设置为photo类的百分之百大小 */
+    width: 100%;
+    height: 100%;
+    /* 更改图片的适配方式 */
+    object-fit: cover;
+
+}
+
+/* 在photo上面添加一层透明渐变 */
+.mycard>.photo::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, 50%, rgb(0, 0, 0));
+
+
+}
+
+/* card下的photo是同来存放图片的div,我们需要让其占满整个card */
+.mycard>.photo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+
+
+
+    /* 添加阴影 */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+    overflow: hidden;
+    /* 动画过渡 */
+    transition: 0.5s;
+
+}
+
+/* 设置鼠标在悬停在mycard状态下，photo的属性 */
+.mycard:hover>.photo {
+    top: 30px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    /* 添加阴影 */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+}
+
+/* 设置h1的属性，让其脱离正常的文档流，将其放置在头像下方20px */
+.mycard h1 {
+    position: absolute;
+    top: 320px;
+    transition: 0.5s;
+}
+
+.mycard:hover h1 {
+    top: 160px;
+}
+
+/* 将h2的position设置为默认的static，然后将其margin-top设置为220px，也就是让其在h1之下，因为h2是静态位置，那么相对的
+p也为静态位置，那么p就会被挤下去 */
+
+.mycard h2 {
+    margin-top: 220px;
+    width: 80%;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    /* 设置下边缘 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    /* 设置文本位置 */
+    text-align: center;
+    /* 设置文字大小 */
+    font-size: 20px;
+
+}
+
+/* 设置介绍文本p */
+.mycard p {
+    width: 90%;
+    text-indent: 32px;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+
+/* 设置了解更多标签 a */
+.mycard a {
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 8px 32px;
+    border-radius: 6px;
+    transition: 0.1s;
+}
+
+
+/* 设置a的悬停效果 */
+.mycard a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: 0.5s;
+}

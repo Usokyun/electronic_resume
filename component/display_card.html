@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画框卡片示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .frame-card {
+            display: flex;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            /* 限制卡片最大宽度 */
+            width: 90%;
+            /* 卡片宽度 */
+            aspect-ratio: 5 / 2;
+            /* 设置长宽比为5:2 */
+            margin: 10px;
+        }
+
+        .info {
+            flex: 1;
+            /* 左侧信息部分占用剩余空间 */
+            padding-right: 20px;
+            /* 与内容框的间距 */
+            position: relative;
+            /* 为绝对定位的日期提供相对位置 */
+        }
+
+        .info h3 {
+            margin: 0;
+            /* 取消标题的默认外边距 */
+            font-size: 1.5em;
+            /* 名称字体大小 */
+            font-weight: bold;
+            /* 名称加粗 */
+            color: #333;
+        }
+
+        .info p {
+            margin: 5px 0;
+            /* 设置段落的外边距 */
+            color: #666;
+            /* 描述和日期颜色 */
+        }
+
+        .description {
+            margin-top: 10px;
+            /* 上边距 */
+            color: #444;
+            /* 描述颜色 */
+            font-size: 1em;
+            /* 描述字体大小 */
+        }
+
+        .content {
+            flex: 2;
+            /* 右侧内容框占用两倍空间 */
+            border-radius: 10px;
+            overflow: hidden;
+            /* 超出内容隐藏 */
+            background: rgba(255, 255, 255, 0.6);
+            /* 内容框背景 */
+            cursor: pointer;
+            /* 鼠标指针变为手形 */
+        }
+
+        .content img {
+            width: 100%;
+            /* 图片宽度 */
+            height: auto;
+            /* 高度自适应 */
+            transition: transform 0.3s ease;
+            /* 悬停时的缩放动画效果 */
+        }
+
+        .content img:hover {
+            transform: scale(1.05);
+            /* 悬停时放大 */
+        }
+
+        .date {
+            position: absolute;
+            /* 使用绝对定位 */
+            bottom: 15px;
+            /* 距离底部15像素 */
+            color: #666;
+            /* 日期颜色 */
+            font-size: 0.9em;
+            /* 日期字体大小 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 画框卡片 -->
+    <div class="frame-card">
+        <div class="info">
+            <h3>项目名称</h3>
+            <p class="description">这是项目的简短描述，概述了项目的主要内容和特点。</p>
+            <p class="date">日期: 2024-10-02</p> <!-- 左下角的日期 -->
+        </div>
+        <div class="content">
+            <img id="contentImage" src="https://via.placeholder.com/400" alt="内容图像"> <!-- 替换为您的图像或视频 -->
+        </div>
+    </div>
+
+</body>
+
+</html>

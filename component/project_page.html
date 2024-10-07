@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目介绍页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+
+            border-radius: 10px;
+
+            padding: 20px;
+            gap: 20px;
+            animation: popUp 1s ease;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 左侧部分 */
+        .details {
+            width: 30%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            color: #333;
+            animation: popUp 0.5s ease-in-out;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .cover img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .cover img:hover {
+            transform: scale(1.05);
+        }
+
+        .tags {
+            margin: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tags span {
+            background-color: #ffcc80;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 0.9em;
+            color: #333;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .tags span:hover {
+            background-color: #ffd54f;
+            transform: translateY(-3px);
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #4caf50;
+            width: 80%;
+        }
+
+        .date {
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* 右侧主体内容 */
+        .content {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+
+        .project-description {
+            margin-bottom: 20px;
+        }
+
+        .project-description h2 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .project-description p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .project-images {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .project-images img {
+            width: 48%;
+            margin: 1%;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-images img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- 左侧部分：项目封面、标签、满意度、创建时间等 -->
+        <div class="details">
+            <h2 class="section-title">项目详情</h2>
+            <div class="cover">
+                <img src="https://via.placeholder.com/300x400" alt="项目封面图片">
+            </div>
+
+            <h2 class="section-title">标签</h2>
+            <div class="tags">
+                <span>编程</span>
+                <span>美术</span>
+                <span>设计</span>
+            </div>
+
+            <h2 class="section-title">满意度</h2>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+
+            <h2 class="section-title">创建时间</h2>
+            <div class="date">
+                <p>2023年12月25日</p>
+            </div>
+        </div>
+
+        <!-- 右侧部分：项目简介和图片展示 -->
+        <div class="content">
+            <h2 class="section-title">项目简介</h2>
+            <div class="project-description">
+                <h2>项目标题</h2>
+                <p>这是项目的简短描述。项目涉及的内容包括编程、美术和设计，整体完成度高，并且具有良好的用户体验。</p>
+            </div>
+
+            <h2 class="section-title">项目图片</h2>
+            <div class="project-images">
+                <img src="https://via.placeholder.com/500x300" alt="项目图片1">
+                <img src="https://via.placeholder.com/500x300" alt="项目图片2">
+                <img src="https://via.placeholder.com/500x300" alt="项目图片3">
+                <img src="https://via.placeholder.com/500x300" alt="项目图片4">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

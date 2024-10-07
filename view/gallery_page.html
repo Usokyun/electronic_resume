@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画廊</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <script>
+        function openImageInNewWindow(imageUrl) {
+            // 打开一个新窗口显示原图，设定窗口尺寸
+            window.open(imageUrl, '_blank', 'width=800,height=600');
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            /* 竖向排列标题和卡片 */
+        }
+
+        h1 {
+            font-size: 3em;
+            /* 大标题字体大小 */
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .gallery-container {
+            margin-top: 10px;
+            width: 70%;
+            /* 设置为100%以适应body */
+            display: flex;
+            flex-wrap: wrap;
+            /* 允许换行 */
+            justify-content: center;
+            /* 居中对齐 */
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            color: #333;
+            width: 30%;
+            /* 每个卡片占宽度的30% */
+            margin: 10px;
+            /* 卡片间距 */
+            opacity: 0;
+            /* 初始透明度为0 */
+            transform: translateY(20px);
+            /* 初始下移 */
+            animation: pop 0.5s forwards;
+            /* 应用弹出动画 */
+        }
+
+        /* 动画效果 */
+        @keyframes pop {
+            to {
+                opacity: 1;
+                /* 结束时完全不透明 */
+                transform: translateY(0);
+                /* 结束时回到原位 */
+            }
+        }
+
+        /* 卡片延迟动画 */
+        .frame-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .frame-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .frame-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .frame-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .frame-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .frame-card:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .frame-card:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        .info {
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .info h3 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .content {
+            flex: 2;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .content img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .content img:hover {
+            transform: scale(1.05);
+        }
+
+        .label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 100px;
+
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 10px 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            /* 限制标签最大宽度 */
+            width: 80%;
+            /* 标签宽度 */
+            margin: 10px;
+            transition: transform 0.3s ease;
+            /* 动态效果 */
+
+            /* 居中 */
+            justify-content: center;
+        }
+
+        .label:hover {
+            transform: translateY(-3px);
+            /* 悬停时稍微上移 */
+        }
+
+        .label-icon {
+            width: 70px;
+            /* 图标宽度 */
+            height: 70px;
+            /* 图标高度 */
+            margin-right: 10px;
+            /* 图标与文字间的间距 */
+        }
+
+        .label-text {
+            font-size: 3em;
+            /* 文字大小 */
+            font-weight: bold;
+            /* 加粗文字 */
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="label">
+        <img src="../image/icon/照片_pic.png" alt="图标" class="label-icon"> <!-- 替换为您的图标 -->
+        <span class="label-text">画廊</span>
+    </div>
+    <div class="gallery-container">
+
+        <!-- 画框卡片 -->
+        <div class="frame-card">
+            <div class="info">
+                <h3>KFC海报</h3>
+                <p class="description">灵感来源于KFC，用比较精彩的配色和炸鸡桶图形创作出了一个极简风格的KFC宣传海报</p>
+                <p class="date">日期: 大二</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/精致KFC.png" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/精致KFC.png')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>脸谱文化1</h3>
+                <p class="description">通过PS加工和CSS样式设计，对图片进行加工处理后，配上文字，效果非常好</p>
+                <p class="date">日期: 大三</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/脸谱1.png" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/脸谱1.png')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>脸谱文化2</h3>
+                <p class="description">使用HTML+CSS实现的响应式布局Card</p>
+                <p class="date">日期: 大三</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/脸谱2.png" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/脸谱2.png')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>素描1</h3>
+                <p class="description">大一时，素描课期间所绘制</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/素描1.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/素描1.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>素描2</h3>
+                <p class="description">大一时，素描课期间所绘制</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/素描2.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/素描2.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>素描3</h3>
+                <p class="description">大一时，素描课期间所绘制</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/素描3.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/素描3.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>临摹</h3>
+                <p class="description">大一时，素描课期间所临摹</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/临摹1.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/临摹1.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>设计</h3>
+                <p class="description">大一时，素描课期间所设计</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/原创1.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/原创1.jpg')">
+
+            </div>
+        </div>
+
+
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>摄影1</h3>
+                <p class="description">大一时候去天池公园玩所拍到的绝景</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/摄影1.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/摄影1.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>摄影2</h3>
+                <p class="description">大二时候去翠屏山玩所拍到的绝景</p>
+                <p class="date">日期: 大二</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/摄影2.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/摄影2.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>摄影3</h3>
+                <p class="description">宜宾夜景</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/摄影3.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/摄影3.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>摄影4</h3>
+                <p class="description">大一时候的图书馆，空前宁静</p>
+                <p class="date">日期: 大一</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/摄影4.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/摄影4.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>PS设计</h3>
+                <p class="description">大二PS课期间所设计</p>
+                <p class="date">日期: 大二</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/peacekeeper.jpg" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/peacekeeper.jpg')">
+
+            </div>
+        </div>
+
+        <div class="frame-card">
+            <div class="info">
+                <h3>板绘</h3>
+                <p class="description">老早以前画的头像了，很可爱</p>
+                <p class="date">日期: 高中</p> <!-- 左下角的日期 -->
+            </div>
+            <div class="content">
+                <img id="contentImage" src="../image/work/头像.png" alt="内容图像"
+                class="thumbnail"
+                onclick="openImageInNewWindow('../image/work/头像.png')">
+
+            </div>
+        </div>
+
+
+
+
+</body>
+
+</html>

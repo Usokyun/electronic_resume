@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="../resource/css/style.css">
+    <link rel="stylesheet" href="../resource/css/slide_image.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>这个页面用来测试卡片生成项目</div>
+
+    <div id="target">
+        保存的内容
+    </div>
+
+    <a href="" id="download">下载</a>
+
+
+
+
+
+    <script>
+        console.log("你好");
+        let element = document.getElementById("target");
+        // html2canvas(element).then (function (canvas) {
+        //     let imageData = canvas.toDataURL("image/png");
+        //     console.log("保存图片");
+        // })
+
+        // html2canvas(element).then(function(canvas) {
+        //     // 将canvas转换为图像数据
+        //     var imageData = canvas.toDataURL("image/png");
+
+        //     // 可以将imageData直接显示在页面上，或者通过其他方式处理
+        //     // 例如，创建一个新的图像元素并将其添加到页面上
+        //     var img = document.createElement("img");
+        //     img.src = imageData;
+        //     document.body.appendChild(img);
+
+        //     // 或者，将图像数据发送到服务器进行保存等操作
+        //     // 例如使用 AJAX 请求发送 imageData
+        // });
+
+        let link = document.getElementById("download");
+        let imageData = null;
+        html2canvas(element, {
+            onrendered: function(canvas) {
+                // 将canvas转换为图像数据
+                imageData = canvas.toDataURL("image/png");
+
+                link.href = imageData;
+                link.download = "down.png";
+
+                // 可以将imageData直接显示在页面上，或者通过其他方式处理
+                // 例如，创建一个新的图像元素并将其添加到页面上
+        
+
+                // 或者，将图像数据发送到服务器进行保存等操作
+                // 例如使用 AJAX 请求发送 imageData
+            }
+        });
+    </script>
+</body>
+
+</html>

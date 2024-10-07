@@ -1,0 +1,984 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.mycontainer {
+    /* 将宽度设置为body的宽度 */
+    width: 100%;
+    /* 将高度设置为视窗大小的全部 */
+    height: 100vh;
+
+    /* 100vh肯定是装不下三个100vh的div的，所以设置overflow-y为scroll */
+    overflow-y: scroll;
+    /* 设置鼠标滑动对其方式 */
+    scroll-snap-type: y mandatory;
+    z-index: 1;
+
+
+}
+
+.slides {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+
+}
+
+.slides1 {
+    /* background: linear-gradient(to bottom right, red, blue); */
+    flex-direction: column;
+
+}
+
+.slides2 {
+    /* background-image: url("/resource/image/脸谱文化1.jpg"); */
+    background: linear-gradient(to bottom right, rgb(23, 23, 24), rgb(41, 40, 40));
+    flex-direction: column;
+}
+
+.slides3 {
+    flex-direction: column;
+    background: linear-gradient(to bottom right, rgb(36, 36, 37), rgb(41, 40, 40));
+    /* background-image: url("/resource/image/脸谱文化4.jpg");
+    background-size: contain;
+    opacity: 1; */
+}
+
+.test {
+    width: 100%;
+    height: 200px;
+    background-color: aquamarine;
+    display: flex;
+    align-items: center;
+}
+
+/* 一下是角色卡片制作的css */
+
+.mycard {
+    position: relative;
+    width: 300px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: gray;
+    transition: 0.5s;
+    margin: 20px;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid rgb(207, 131, 17);
+    opacity: 0;
+    top: -400px;
+
+}
+
+.focus .mycard {
+    opacity: 1;
+    top: 0px;
+    transition: 1.2s;
+}
+
+.mycard * {
+    z-index: 2;
+}
+
+.mycard .photo1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+
+}
+
+.mycard:hover .photo1 {
+    /* top: 30px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%; */
+    opacity: 0.3;
+    transition: 0.5s;
+    z-index: 1;
+
+}
+
+.mycard .photo1::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, 50%, rgb(0, 0, 0));
+}
+
+
+.mycard .photo2::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, 50%, rgb(0, 0, 0));
+}
+
+
+.mycard .photo1 img {
+    /* visibility: hidden; */
+    width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mycard .photo2 {
+    position: absolute;
+    width: 100%;
+    top: 0;
+
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.7);
+
+    /* top: 30px;
+    width: 200px;
+    height: 120px;
+    border-radius: 10px; */
+    overflow: hidden;
+    z-index: 3;
+    transition: 0.5s;
+
+}
+
+.mycard .photo2 img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.mycard:hover .photo2 img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    opacity: 1;
+    z-index: 4;
+    transition: 0.5s;
+}
+
+.mycard:hover .photo2 {
+    top: 30px;
+    width: 220px;
+    height: 140px;
+    border-radius: 10px;
+    z-index: 4;
+    opacity: 1;
+}
+
+.mycard h1 {
+    position: absolute;
+    color: aliceblue;
+    top: 340px;
+    font-size: 44px;
+    font-weight: 600;
+
+
+
+    transition: 0.5s;
+
+}
+
+.mycard:hover h1 {
+    top: 140px;
+}
+
+.mycard h2 {
+    /* visibility: hidden; */
+    margin-top: 220px;
+    transition: 1s;
+    font-size: 18px;
+    color: aliceblue;
+    padding: 18px 80px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.mycard:hover h2 {
+    /* visibility: visible; */
+    transition: 1s;
+}
+
+.mycard p {
+    /* color: aliceblue; */
+    font-size: 14px;
+    text-indent: 24px;
+    line-height: 28px;
+    color: aliceblue;
+
+}
+
+.mycard a {
+    text-decoration: none;
+    color: aliceblue;
+    padding: 12px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.mycard a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: 0.5s;
+}
+
+.mycard .trans {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.mycard:hover .trans {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.card-box {
+    display: flex;
+    flex-direction: row;
+}
+
+/* slides1的内容 */
+.introduction {
+    position: relative;
+    opacity: 0;
+    font-size: 48px;
+    top: 30px;
+    color: aliceblue;
+    z-index: 1;
+    transition: 0.8s;
+}
+
+.focus .introduction {
+    font-size: 54px;
+}
+
+.mycontainer .slides1:not(.focus) * {
+    /* 添加你想设置的样式 */
+    /* 例如，将颜色设置为红色 */
+    opacity: 0.7;
+    transition: 0.8s;
+}
+
+.mycontainer .slides1.focus * {
+    opacity: 1;
+    top: 0px;
+    transition: 0.8s;
+}
+
+.slides .words {
+    top: 60px;
+    font-size: 24px;
+    position: relative;
+    color: aliceblue;
+}
+
+/* 我们要将photo作为背景图片的相框，我们需要让背景铺满整个slides1，并且不会影响文字的排布 */
+.slides1-photo {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    /* 设置内部阴影 */
+
+}
+
+/* 我们需要将图片的整体色调调暗 */
+.slides1-photo img {
+    position: relative;
+    filter: brightness(50%);
+    bottom: 200px;
+    width: 1920px;
+    height: 1280px;
+    box-shadow: inset 0 0 20px 1000px rgba(0, 0, 0, 1);
+}
+
+.slides1-photo img::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+}
+
+.myshadow {
+    color: aliceblue;
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    border-radius: 30%;
+
+    box-shadow: 0 0 50px 200px rgba(0, 0, 0, 0.3);
+}
+
+.myshadow-inner {
+    position: absolute;
+    color: aliceblue;
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    border-radius: 30%;
+
+    box-shadow: inset 0 0 50px 200px rgba(0, 0, 0, 0.3);
+}
+
+.slides2-title {
+    font-size: 54px;
+    color: aliceblue;
+    z-index: 3;
+}
+
+.slides3-title {
+    font-size: 54px;
+}
+
+/* slides2的内容 */
+.slides2 .background-photo {
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    right: 1000px;
+    opacity: 0.3;
+}
+
+/* .slides2 :not(.background-photo):not(.background-photo1) {
+    z-index: 2;
+} */
+
+.slides2 .background-photo img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    object-fit: contain;
+}
+
+.slides2 .background-photo1 {
+    height: 100%;
+    width: 700px;
+    position: absolute;
+    top: 500px;
+    overflow: hidden;
+    left: 1150px;
+    opacity: 0;
+    transition: 1s;
+}
+
+.slides2.focus .background-photo1 {
+    opacity: 1;
+    top: 100px;
+    transition: 1.5s;
+
+}
+
+.slides2 .background-photo1 img {
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* 模态框的内容 */
+
+/* 设置模态框入口按钮的样式 */
+.modal-button {
+    font-size: 54px;
+    text-decoration: none;
+    padding: 0.5em 2em;
+    border: 2px solid rgb(184, 102, 2);
+    color: aliceblue;
+    border-radius: 10px;
+}
+
+.modal-window {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 不接受鼠标事件 */
+    pointer-events: none;
+    /* 位于最slides3上层,主体下层 */
+    z-index: 3;
+
+    display: flex;
+    flex-direction: row;
+    /* 设置主轴布局 */
+    align-items: center;
+    /* 设置副轴布局 */
+    justify-content: center;
+
+}
+
+/* 设置target伪元素，该选择器会在点击超链接a后href里面的标签内容会赋予target */
+.modal-window:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition: 0.5s;
+}
+
+/* 模态框主体 */
+.modal-window>div {
+    width: 66%;
+    height: 66%;
+    background: linear-gradient(135deg, rgb(34, 33, 33), rgb(0, 0, 0));
+    border-radius: 20px;
+    z-index: 4;
+
+
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* 设置模态框中所有字体的基本属性 */
+.modal-window * {
+    color: aliceblue;
+}
+
+/* content为div的右半边 */
+.modal-window .modal-content {
+    position: relative;
+    height: 100%;
+    width: 70%;
+    left: -50px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+/* 模态框标题 */
+.modal-window .title {
+
+    height: 15%;
+    width: 100%;
+    font-size: 42px;
+    top: 0;
+    border-radius: 20px;
+
+}
+
+/* 模态框身体 */
+.modal-window .body {
+    height: 60%;
+    width: 100%;
+    position: relative;
+
+
+    /* 设置边缘 */
+    border: 2px solid rgb(134, 74, 0);
+    border-radius: 10px;
+    padding: 10px 10px;
+}
+
+/* 模态框底部 */
+.modal-window .bottom {
+    width: 100%;
+    height: 20%;
+    padding-top: 30px;
+}
+
+
+.modal-window .modal-photo {
+    position: relative;
+    right: 100px;
+    width: 50%;
+    height: 130%;
+    overflow: hidden;
+}
+
+.modal-window .modal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+
+/* button容器 */
+.button-container {
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-size: 54px;
+}
+
+/* 容器下的按钮样式 */
+.button-container button {
+    width: 3em;
+    border-radius: 1em;
+    background-color: rgb(134, 74, 0);
+    border: 1px solid aliceblue;
+
+    transition: 0.5s;
+}
+
+.modal-window a:not(.times, .button-container-a) {
+    border-radius: 1em;
+    padding: 1em 3em;
+    background-color: rgb(134, 74, 0);
+    border: 1px solid aliceblue;
+
+    transition: 0.5s;
+}
+
+/* 容器下的按钮的悬浮样式 */
+.button-container button:hover {
+
+    background-color: rgb(184, 102, 2);
+    transition: 0.5s;
+}
+
+.modal-content a:not(.times):hover {
+    background-color: rgb(184, 102, 2);
+    transition: 0.5s;
+}
+
+/* 生成按钮 */
+.generate-button {
+    position: absolute;
+    padding: 1em 3em;
+    border: 1px solid aliceblue;
+    box-sizing: content-box;
+    font-size: 28px;
+    visibility: hidden;
+}
+
+/* slides3的内容 */
+.slides3-title {
+    color: aliceblue;
+    margin: 20px;
+    border-bottom: 3px solid aliceblue;
+    opacity: 0;
+    transition: 300ms;
+}
+
+.times {
+    position: relative;
+
+
+    left: 200px;
+}
+
+/* 下面是slides3的背景内容 */
+.slides3-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.slides3-background-image {
+    opacity: 0;
+    position: absolute;
+    transition: 500ms;
+
+}
+
+.slides3-background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 设置focus效果 */
+.slides3-background .focus {
+    opacity: 0.7;
+    transition: 500ms;
+}
+
+.slides3 .myshadow {
+    opacity: 0;
+    transition: 300ms;
+}
+
+.slides3 .myshadow-inner {
+    opacity: 0;
+    transition: 300ms;
+}
+
+.slides3,
+.focus .myshadow {
+    opacity: 1;
+    transition: 700ms;
+}
+
+.slides3,
+.focus .myshadow-inner {
+    opacity: 1;
+    transition: 700ms;
+}
+
+.slides3-background-image-fix {
+    position: absolute;
+    right: 0px;
+    height: 100%;
+    width: 800px;
+}
+
+.slides3-background-image-fix img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: 700ms;
+}
+
+.slides3-context {
+    display: flex;
+    direction: row;
+}
+
+.focus .shell {
+    opacity: 1;
+    transition: 1000ms;
+}
+
+.focus .slides3-title {
+    opacity: 1;
+    transition: 1000ms;
+}
+
+.focus .slides3-background-image-fix img {
+    opacity: 0.6;
+    transition: 800ms;
+
+}
+
+.focus .shell {
+    width: 800px;
+    height: 450px;
+    opacity: 1;
+    transition: 800ms;
+
+}
+
+/* 设置生成脸谱里面的a的css */
+
+.button-container-a {
+    position: relative;
+    text-decoration: none;
+    top: 20px;
+    color: aliceblue;
+    padding: 12px 30px;
+    border: 1px solid rgb(184, 102, 2);
+    border-radius: 10px;
+}
+
+/* 生成卡片的css内容 */
+.mycard-generation {
+    position: absolute;
+    width: 800px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: gray;
+    transition: 0.5s;
+    margin: 225px 128px 100px 500px;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid rgb(207, 131, 17);
+    opacity: 0;
+    z-index: -99;
+}
+
+.mycard-generation .photo2 {
+    position: absolute;
+    width: 100%;
+    top: 0;
+
+
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.7);
+
+    /* top: 30px;
+    width: 200px;
+    height: 120px;
+    border-radius: 10px; */
+    overflow: hidden;
+    z-index: 3;
+    transition: 0.5s;
+}
+
+.mycard-generation .photo1 {
+    position: absolute;
+    width: 105%;
+    height: 100%;
+    top: 0;
+    left: -20px;
+
+
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+
+}
+
+.mycard-generation .photo3 {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+
+
+
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.7);
+
+    /* top: 30px;
+    width: 200px;
+    height: 120px;
+    border-radius: 10px; */
+    overflow: hidden;
+    z-index: 3;
+    transition: 0.5s;
+}
+
+.mycard:hover .photo1 {
+    /* top: 30px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%; */
+    opacity: 0.3;
+    transition: 0.5s;
+    z-index: 1;
+
+}
+
+.mycard .photo1::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, 50%, rgb(0, 0, 0));
+}
+
+
+.mycard .photo2::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, 50%, rgb(0, 0, 0));
+}
+
+
+.mycard-generation .photo1 img {
+    /* visibility: hidden; */
+    width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mycard-generation .photo2 {
+    position: absolute;
+    width: 100%;
+    top: 0;
+
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.7);
+
+    /* top: 30px;
+    width: 200px;
+    height: 120px;
+    border-radius: 10px; */
+    overflow: hidden;
+    z-index: 3;
+    transition: 0.5s;
+
+}
+
+.mycard-generation .photo2 img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.mycard-generation .photo3 img {
+    width: 95%;
+    height: 50%;
+    margin-left: 20px;
+
+    object-fit: cover;
+}
+
+.mycard-generation:hover .photo2 img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    opacity: 1;
+    z-index: 4;
+    transition: 0.5s;
+}
+
+.mycard-generation:hover .photo2 {
+    top: 50px;
+    width: 220px;
+    height: 330px;
+    left: 100px;
+    border-radius: 10px;
+    z-index: 4;
+    opacity: 1;
+}
+
+.mycard-generation h1 {
+    position: absolute;
+    color: aliceblue;
+    top: 340px;
+    font-size: 44px;
+    font-weight: 600;
+
+
+
+    transition: 0.5s;
+
+}
+
+.mycard-generation:hover h1 {
+    top: 40px;
+    left: 500px;
+}
+
+.mycard-generation h2 {
+    /* visibility: hidden; */
+    position: absolute;
+    text-align: center;
+    margin-top: 100px;
+    left: 375px;
+    width: 180px;
+    transition: 1s;
+    font-size: 22px;
+    color: aliceblue;
+    padding: 18px 80px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.mycard-generation:hover h2 {
+    /* visibility: visible; */
+    transition: 1s;
+}
+
+.mycard-generation p {
+    /* color: aliceblue; */
+    text-align: center;
+    padding: 18px 80px;
+    position: absolute;
+    width: 400px;
+    left: 250px;
+    top: 200px;
+    font-size: 14px;
+    text-indent: 24px;
+    line-height: 28px;
+    color: aliceblue;
+
+}
+
+.mycard-generation a {
+    /* text-decoration: none; */
+    text-decoration: underline;
+    position: absolute;
+    top: 350px;
+    left: 460px;
+    color: aliceblue;
+    padding: 12px 30px;
+    border: 0px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.mycard a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: 0.5s;
+}
+
+.mycard .trans {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.mycard:hover .trans {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+
+
+
+.backup {
+    z-index: -99;
+    left: -300px;
+}
+
+.backup .photo1 {
+    /* top: 30px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%; */
+    opacity: 0.3;
+    transition: 0.5s;
+    z-index: 1;
+
+}
+
+.backup .trans {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.backup h2 {
+    /* visibility: visible; */
+    transition: 1s;
+}
+
+.backup h1 {
+    top: 40px;
+    left: 500px;
+}
+
+.backup .photo2 {
+    top: 50px;
+    width: 220px;
+    height: 330px;
+    left: 100px;
+    border-radius: 10px;
+    z-index: 4;
+    opacity: 1;
+}
+
+.backup .photo2 img {
+    position: absolute;
+    width: 100%;
+    height: 330px;
+    margin-top: 0px;
+    padding-top: 0px;
+    /* object-fit: cover; */
+    opacity: 1;
+    z-index: 4;
+    transition: 0.5s;
+}
+
+.backup .photo1 {
+    /* top: 30px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%; */
+    opacity: 0.3;
+    transition: 0.5s;
+    z-index: 1;
+
+}
+
+.modal-window input {
+    background-color: black;
+    width: 300px;
+    height: 50px;
+    font-size: 24px;
+}

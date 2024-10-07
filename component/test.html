@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片弹出新窗口</title>
+    <style>
+        .thumbnail {
+            width: 300px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        function openImageInNewWindow(imageUrl) {
+            // 打开一个新窗口显示原图，设定窗口尺寸
+            window.open(imageUrl, '_blank', 'width=800,height=600');
+        }
+    </script>
+</head>
+
+<body>
+
+    <h2>点击下方图片查看原图</h2>
+
+    <!-- 缩略图图片，点击时触发 openImageInNewWindow 函数 -->
+    <img src="image/work/5.png"
+         alt="缩略图"
+         class="thumbnail"
+         onclick="openImageInNewWindow('image/work/5.png')">
+
+</body>
+
+</html>
