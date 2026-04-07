@@ -69,6 +69,28 @@ const TOOLS = [
   }
 ];
 
+function normalizeTools(tools) {
+  return tools.map((tool) => {
+    if (tool && tool.name && tool.input_schema) {
+      return tool;
+    }
+
+    if (tool && tool.type === 'function' && tool.function) {
+      return {
+        name: tool.function.name,
+        description: tool.function.description || tool.function.name,
+        input_schema: tool.function.parameters || {
+          type: 'object',
+          properties: {},
+          required: []
+        }
+      };
+    }
+
+    return tool;
+  });
+}
+
 const PROJECT_URLS = {
   home: 'index.html',
   gallery: 'view/gallery_page.html',
@@ -182,6 +204,27 @@ class UsokyunAgent {
     this.apiKey = apiKey;
     this.model = options.model || 'MiniMax-M2.7';
     this.conversationHistory = [];
+    this.proxyUrl = options.proxyUrl || window.CHAT_PROXY_URL || '';
+    this.transport = options.transport || 'auto';
+  }
+
+  getRequestConfig() {
+    const isLocalProxyHost = window.location.hostname === 'localhost' && window.location.port === '8080';
+    const shouldUseLocalProxy = this.transport === 'proxy' || (!this.proxyUrl && (isLocalProxyHost || this.transport === 'same-origin'));
+    const apiUrl = this.proxyUrl || (shouldUseLocalProxy
+      ? `/anthropic/v1/messages?key=${encodeURIComponent(this.apiKey)}`
+      : 'https://api.minimaxi.com/anthropic/v1/messages');
+
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+
+    if (!shouldUseLocalProxy || this.proxyUrl) {
+      headers['x-api-key'] = this.apiKey;
+      headers['anthropic-version'] = '2023-06-01';
+    }
+
+    return { apiUrl, headers, shouldUseLocalProxy };
   }
 
   async send(userMessage) {
@@ -198,25 +241,26 @@ class UsokyunAgent {
 
       try {
         // 通过 Service Worker 同源代理
-        const apiUrl = `/anthropic/v1/messages?key=${encodeURIComponent(this.apiKey)}`;
+        const { apiUrl, headers, shouldUseLocalProxy } = this.getRequestConfig();
 
         const response = await fetch(apiUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers,
           body: JSON.stringify({
             model: this.model,
             max_tokens: 4096,
             system: SYSTEM_PROMPT,
             messages: this.conversationHistory,
-            tools: TOOLS,
+            tools: normalizeTools(TOOLS),
             tool_choice: { type: "auto" }
           })
         });
 
         if (!response.ok) {
           const error = await response.text();
+          if ((response.status === 404 || response.status === 405) && shouldUseLocalProxy) {
+            throw new Error('当前运行在静态服务器下，本地 /anthropic 代理不可用。已切换需求为直连或自定义 proxyUrl。');
+          }
           throw new Error(`API Error: ${response.status} - ${error}`);
         }
 

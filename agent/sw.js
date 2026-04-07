@@ -1,11 +1,10 @@
-const API_TARGET = 'https://api.minimaxi.com/anthropic/v1/messages';
+const API_TARGET = 'https://api.minimaxi.com';
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
-  // 拦截所有到 /anthropic/v1/messages 的 POST 请求
-  // 支持根目录和子目录部署
-  if (url.pathname.endsWith('/anthropic/v1/messages') && event.request.method === 'POST') {
+  // 拦截所有到 /minimax-anthropic/v1/messages 的 POST 请求
+  if ((url.pathname.endsWith('/minimax-anthropic/v1/messages') || url.pathname.endsWith('/anthropic/v1/messages')) && event.request.method === 'POST') {
     event.respondWith(handleAnthropicRequest(event.request, url));
     return;
   }
@@ -29,7 +28,7 @@ async function handleAnthropicRequest(request, url) {
     const body = await request.json();
     console.log('[SW] Request body parsed, model:', body.model);
 
-    const response = await fetch(API_TARGET, {
+    const response = await fetch(`${API_TARGET}/anthropic/v1/messages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

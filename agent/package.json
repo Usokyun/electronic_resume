@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "dev": "npx serve . --proxy=/anthropic:https://api.minimaxi.com/anthropic -p 8080"
+    "dev": "node server.js"
   }
 }

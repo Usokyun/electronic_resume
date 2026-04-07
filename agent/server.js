@@ -1,4 +1,5 @@
 const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
@@ -17,26 +18,47 @@ const mimeTypes = {
   '.svg': 'image/svg+xml',
 };
 
+const ROOT_DIR = path.join(__dirname, '..');
+
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
 
-  // Proxy /anthropic/* requests
-  if (parsedUrl.pathname.startsWith('/anthropic')) {
-    const targetPath = parsedUrl.pathname.replace('/anthropic', '/anthropic');
-    const targetUrl = `${API_TARGET}${targetPath}`;
+  if (
+    req.method === 'OPTIONS' &&
+    (parsedUrl.pathname.startsWith('/minimax-anthropic') || parsedUrl.pathname.startsWith('/anthropic'))
+  ) {
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, x-api-key, anthropic-version'
+    });
+    res.end();
+    return;
+  }
 
-    const proxyReq = http.request(
+  // Proxy AI requests from either /minimax-anthropic/* or /anthropic/*.
+  if (parsedUrl.pathname.startsWith('/minimax-anthropic') || parsedUrl.pathname.startsWith('/anthropic')) {
+    const targetPath = parsedUrl.pathname.startsWith('/minimax-anthropic')
+      ? parsedUrl.pathname.replace('/minimax-anthropic', '/anthropic')
+      : parsedUrl.pathname;
+    const targetUrl = `${API_TARGET}${targetPath}`;
+    const apiKey = req.headers['x-api-key'] || parsedUrl.query.key || '';
+
+    const proxyReq = https.request(
       targetUrl,
       {
-        method: 'POST',
+        method: req.method || 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': req.headers['x-api-key'] || '',
+          'x-api-key': apiKey,
           'anthropic-version': '2023-06-01',
         },
       },
       (proxyRes) => {
-        res.writeHead(proxyRes.statusCode, proxyRes.headers);
+        res.writeHead(proxyRes.statusCode || 500, {
+          ...proxyRes.headers,
+          'Access-Control-Allow-Origin': '*'
+        });
         proxyRes.pipe(res);
       }
     );
@@ -49,7 +71,10 @@ const server = http.createServer(async (req, res) => {
     });
 
     proxyReq.on('error', (e) => {
-      res.writeHead(500);
+      res.writeHead(500, {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      });
       res.end(JSON.stringify({ error: e.message }));
     });
     return;
@@ -57,7 +82,7 @@ const server = http.createServer(async (req, res) => {
 
   // Serve static files
   let filePath = parsedUrl.pathname === '/' ? '/index.html' : parsedUrl.pathname;
-  filePath = path.join(__dirname, filePath);
+  filePath = path.join(ROOT_DIR, filePath);
 
   const ext = path.extname(filePath);
   const contentType = mimeTypes[ext] || 'application/octet-stream';
@@ -81,6 +106,6 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
   console.log('');
-  console.log('API proxy: /anthropic/* will be forwarded to MiniMax API');
+  console.log('API proxy: /minimax-anthropic/* will be forwarded to MiniMax API');
   console.log('Press Ctrl+C to stop');
 });
