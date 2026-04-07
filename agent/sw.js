@@ -2,16 +2,15 @@ const API_TARGET = 'https://api.minimaxi.com/anthropic/v1/messages';
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  console.log('[SW] Intercepted:', event.request.method, url.pathname);
   
   // 拦截所有到 /anthropic/v1/messages 的 POST 请求
-  if (url.pathname === '/anthropic/v1/messages' && event.request.method === 'POST') {
-    console.log('[SW] Handling anthropic request');
+  // 支持根目录和子目录部署
+  if (url.pathname.endsWith('/anthropic/v1/messages') && event.request.method === 'POST') {
     event.respondWith(handleAnthropicRequest(event.request, url));
     return;
   }
   
-  console.log('[SW] Not handled, passing through');
+  // 其他请求正常处理
   event.respondWith(fetch(event.request));
 });
 
