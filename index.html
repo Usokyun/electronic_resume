@@ -334,15 +334,16 @@
 
     <!-- AI Chat Widget -->
     <link rel="stylesheet" href="agent/chat_widget_v2.css">
+    <script src="agent/openrouter.local.js"></script>
     <script src="agent/agent_widget_v2.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 可选：如果将 agent/cors-proxy-worker.js 部署到 Cloudflare Worker，
-            // 在这里填入 Worker URL，例如：
-            
-            window.CHAT_PROXY_URL = 'https://damp-shape-598d.twilight-sky-0b09.workers.dev/anthropic/v1/messages';
-            initChatWidget('sk-cp-xXFdsiOv-bMkbSoF-XZfpexYhkD8upFywOXjJY0a6oxFz-Ec8c_aW-wvDouaskHOxcxV7ZXxnKwonwn-Bbp0OIyLoslSUQ5WDe21qmG92-mOFbTRaquCHT4', {
-                transport: 'auto'
+            initChatWidget(window.OPENROUTER_API_KEY, {
+                model: window.OPENROUTER_MODEL,
+                transport: window.OPENROUTER_TRANSPORT || 'auto',
+                proxyUrl: window.OPENROUTER_PROXY_URL || '',
+                siteUrl: window.OPENROUTER_SITE_URL || window.location.origin,
+                siteName: window.OPENROUTER_SITE_NAME || document.title
             });
         });
     </script>

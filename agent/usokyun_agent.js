@@ -1,10 +1,15 @@
+const DEFAULT_OPENROUTER_MODEL = window.OPENROUTER_MODEL || 'anthropic/claude-3.5-haiku';
+const OPENROUTER_MESSAGES_API_URL = 'https://openrouter.ai/api/v1/messages';
+
 class UsokyunAgent {
   constructor(apiKey, options = {}) {
     this.apiKey = apiKey;
-    this.model = options.model || 'MiniMax-M2.7';
+    this.model = options.model || DEFAULT_OPENROUTER_MODEL;
     this.conversationHistory = [];
     this.useProxy = options.useProxy;
-    this.proxyUrl = options.proxyUrl;
+    this.proxyUrl = options.proxyUrl || window.OPENROUTER_PROXY_URL || window.CHAT_PROXY_URL || '';
+    this.siteUrl = options.siteUrl || window.OPENROUTER_SITE_URL || window.location.origin;
+    this.siteName = options.siteName || window.OPENROUTER_SITE_NAME || document.title;
   }
 
   async send(userMessage) {
@@ -20,15 +25,21 @@ class UsokyunAgent {
       turnCount++;
 
       try {
-        const apiUrl = this.proxyUrl || 'https://api.minimaxi.com/anthropic/v1/messages';
-        
+        const apiUrl = this.proxyUrl || OPENROUTER_MESSAGES_API_URL;
+        const headers = {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.apiKey}`
+        };
+        if (this.siteUrl) {
+          headers['HTTP-Referer'] = this.siteUrl;
+        }
+        if (this.siteName) {
+          headers['X-OpenRouter-Title'] = this.siteName;
+        }
+
         const response = await fetch(apiUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': this.apiKey,
-            'anthropic-version': '2023-06-01'
-          },
+          headers,
           body: JSON.stringify({
             model: this.model,
             max_tokens: 4096,

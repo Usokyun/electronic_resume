@@ -126,6 +126,9 @@ ${TIMELINE.map((item) => `- ${item.year} ${item.title}: ${item.description}`).jo
 ${SKILLS.join('、')}
 `;
 
+const DEFAULT_OPENROUTER_MODEL = window.OPENROUTER_MODEL || 'anthropic/claude-3.5-haiku';
+const OPENROUTER_MESSAGES_API_URL = 'https://openrouter.ai/api/v1/messages';
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -365,9 +368,11 @@ function looksLikeToolDump(text) {
 class UsokyunAgentV2 {
   constructor(apiKey, options = {}) {
     this.apiKey = apiKey;
-    this.model = options.model || 'MiniMax-M2.7';
-    this.proxyUrl = options.proxyUrl || window.CHAT_PROXY_URL || '';
-    this.transport = options.transport || 'auto';
+    this.model = options.model || DEFAULT_OPENROUTER_MODEL;
+    this.proxyUrl = options.proxyUrl || window.OPENROUTER_PROXY_URL || window.CHAT_PROXY_URL || '';
+    this.transport = options.transport || window.OPENROUTER_TRANSPORT || 'auto';
+    this.siteUrl = options.siteUrl || window.OPENROUTER_SITE_URL || window.location.origin;
+    this.siteName = options.siteName || window.OPENROUTER_SITE_NAME || document.title;
     this.conversationHistory = [];
     this.maxTurns = options.maxTurns || 10;
   }
@@ -377,12 +382,17 @@ class UsokyunAgentV2 {
     const useLocalProxy = this.transport === 'proxy' || (!this.proxyUrl && (isLocalProxyHost || this.transport === 'same-origin'));
     const apiUrl = this.proxyUrl || (useLocalProxy
       ? `/anthropic/v1/messages?key=${encodeURIComponent(this.apiKey)}`
-      : 'https://api.minimaxi.com/anthropic/v1/messages');
+      : OPENROUTER_MESSAGES_API_URL);
 
     const headers = { 'Content-Type': 'application/json' };
+    if (this.siteUrl) {
+      headers['HTTP-Referer'] = this.siteUrl;
+    }
+    if (this.siteName) {
+      headers['X-OpenRouter-Title'] = this.siteName;
+    }
     if (!useLocalProxy || this.proxyUrl) {
-      headers['x-api-key'] = this.apiKey;
-      headers['anthropic-version'] = '2023-06-01';
+      headers.Authorization = `Bearer ${this.apiKey}`;
     }
     return { apiUrl, headers, useLocalProxy };
   }
@@ -421,7 +431,7 @@ class UsokyunAgentV2 {
         if (!response.ok) {
           const errorText = await response.text();
           if ((response.status === 404 || response.status === 405) && useLocalProxy) {
-            throw new Error('当前运行在静态服务器下，本地代理不可用，请配置 proxyUrl。');
+            throw new Error('当前运行环境没有可用的本地 OpenRouter 代理，请改用 direct 或配置 proxyUrl。');
           }
           throw new Error(`API Error: ${response.status} - ${errorText}`);
         }
@@ -495,7 +505,7 @@ class UsokyunAgentV2 {
       } catch (error) {
         console.error('Agent error:', error);
         const message = error && error.message === 'Failed to fetch'
-          ? '网络请求失败。静态站点需要可用的代理地址。'
+          ? '网络请求失败。请检查 OpenRouter key、模型名，以及当前 transport 或 proxyUrl 配置。'
           : error.message;
         window.chatWidgetApi.removeLiveStatus(liveStatus);
         window.chatWidgetApi.failTrace(traceId, message);
@@ -740,6 +750,7 @@ function createChatWidget() {
 
 window.initChatWidget = function initChatWidget(apiKey, options = {}) {
   if (!apiKey) {
+    console.warn('OpenRouter API key is missing. Please update agent/openrouter.local.js.');
     return;
   }
   window.chatAgent = new window.UsokyunAgent(apiKey, options);

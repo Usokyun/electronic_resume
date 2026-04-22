@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv /tmp/index_new.html \"d:/个人作品集/electronic_resume/project/脸谱文化项目/facegeneration/template/index.html\")"
+    ]
+  }
+}

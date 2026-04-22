@@ -199,13 +199,18 @@ function formatResponse(text) {
       '<a href="$1" class="project-link" target="_blank">$2</a>');
 }
 
+const DEFAULT_OPENROUTER_MODEL = window.OPENROUTER_MODEL || 'anthropic/claude-3.5-haiku';
+const OPENROUTER_MESSAGES_API_URL = 'https://openrouter.ai/api/v1/messages';
+
 class UsokyunAgent {
   constructor(apiKey, options = {}) {
     this.apiKey = apiKey;
-    this.model = options.model || 'MiniMax-M2.7';
+    this.model = options.model || DEFAULT_OPENROUTER_MODEL;
     this.conversationHistory = [];
-    this.proxyUrl = options.proxyUrl || window.CHAT_PROXY_URL || '';
-    this.transport = options.transport || 'auto';
+    this.proxyUrl = options.proxyUrl || window.OPENROUTER_PROXY_URL || window.CHAT_PROXY_URL || '';
+    this.transport = options.transport || window.OPENROUTER_TRANSPORT || 'auto';
+    this.siteUrl = options.siteUrl || window.OPENROUTER_SITE_URL || window.location.origin;
+    this.siteName = options.siteName || window.OPENROUTER_SITE_NAME || document.title;
   }
 
   getRequestConfig() {
@@ -213,15 +218,20 @@ class UsokyunAgent {
     const shouldUseLocalProxy = this.transport === 'proxy' || (!this.proxyUrl && (isLocalProxyHost || this.transport === 'same-origin'));
     const apiUrl = this.proxyUrl || (shouldUseLocalProxy
       ? `/anthropic/v1/messages?key=${encodeURIComponent(this.apiKey)}`
-      : 'https://api.minimaxi.com/anthropic/v1/messages');
+      : OPENROUTER_MESSAGES_API_URL);
 
     const headers = {
       'Content-Type': 'application/json'
     };
 
+    if (this.siteUrl) {
+      headers['HTTP-Referer'] = this.siteUrl;
+    }
+    if (this.siteName) {
+      headers['X-OpenRouter-Title'] = this.siteName;
+    }
     if (!shouldUseLocalProxy || this.proxyUrl) {
-      headers['x-api-key'] = this.apiKey;
-      headers['anthropic-version'] = '2023-06-01';
+      headers.Authorization = `Bearer ${this.apiKey}`;
     }
 
     return { apiUrl, headers, shouldUseLocalProxy };
@@ -259,7 +269,7 @@ class UsokyunAgent {
         if (!response.ok) {
           const error = await response.text();
           if ((response.status === 404 || response.status === 405) && shouldUseLocalProxy) {
-            throw new Error('当前运行在静态服务器下，本地 /anthropic 代理不可用。已切换需求为直连或自定义 proxyUrl。');
+            throw new Error('当前运行环境没有可用的本地 OpenRouter 代理，请改用 direct 或配置 proxyUrl。');
           }
           throw new Error(`API Error: ${response.status} - ${error}`);
         }
@@ -449,7 +459,7 @@ function createChatWidget() {
 
 window.initChatWidget = function(apiKey, options = {}) {
   if (!apiKey) {
-    window.chatWidgetCallback?.('请提供 API Key', 'error');
+    window.chatWidgetCallback?.('请先在 agent/openrouter.local.js 里填写 OpenRouter API Key。', 'error');
     return;
   }
   window.chatAgent = new window.UsokyunAgent(apiKey, options);

@@ -5,7 +5,7 @@ const path = require('path');
 const url = require('url');
 
 const PORT = 8080;
-const API_TARGET = 'https://api.minimaxi.com';
+const API_TARGET = 'https://openrouter.ai';
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -20,39 +20,68 @@ const mimeTypes = {
 
 const ROOT_DIR = path.join(__dirname, '..');
 
+function isProxyPath(pathname) {
+  return pathname.startsWith('/minimax-anthropic')
+    || pathname.startsWith('/anthropic')
+    || pathname.startsWith('/openrouter');
+}
+
+function mapProxyPath(pathname) {
+  if (pathname.startsWith('/minimax-anthropic')) {
+    return `/api${pathname.slice('/minimax-anthropic'.length)}`;
+  }
+  if (pathname.startsWith('/anthropic')) {
+    return `/api${pathname.slice('/anthropic'.length)}`;
+  }
+  if (pathname.startsWith('/openrouter')) {
+    return `/api${pathname.slice('/openrouter'.length)}`;
+  }
+  return pathname;
+}
+
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
 
-  if (
-    req.method === 'OPTIONS' &&
-    (parsedUrl.pathname.startsWith('/minimax-anthropic') || parsedUrl.pathname.startsWith('/anthropic'))
-  ) {
+  if (req.method === 'OPTIONS' && isProxyPath(parsedUrl.pathname)) {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, x-api-key, anthropic-version'
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, HTTP-Referer, X-OpenRouter-Title'
     });
     res.end();
     return;
   }
 
-  // Proxy AI requests from either /minimax-anthropic/* or /anthropic/*.
-  if (parsedUrl.pathname.startsWith('/minimax-anthropic') || parsedUrl.pathname.startsWith('/anthropic')) {
-    const targetPath = parsedUrl.pathname.startsWith('/minimax-anthropic')
-      ? parsedUrl.pathname.replace('/minimax-anthropic', '/anthropic')
-      : parsedUrl.pathname;
-    const targetUrl = `${API_TARGET}${targetPath}`;
-    const apiKey = req.headers['x-api-key'] || parsedUrl.query.key || '';
+  if (isProxyPath(parsedUrl.pathname)) {
+    const targetUrl = `${API_TARGET}${mapProxyPath(parsedUrl.pathname)}`;
+    const authorization = req.headers.authorization || (parsedUrl.query.key ? `Bearer ${parsedUrl.query.key}` : '');
+
+    if (!authorization) {
+      res.writeHead(400, {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(JSON.stringify({ error: 'OpenRouter API key required' }));
+      return;
+    }
+
+    const proxyHeaders = {
+      'Content-Type': 'application/json',
+      Authorization: authorization
+    };
+
+    if (req.headers['http-referer']) {
+      proxyHeaders['HTTP-Referer'] = req.headers['http-referer'];
+    }
+    if (req.headers['x-openrouter-title']) {
+      proxyHeaders['X-OpenRouter-Title'] = req.headers['x-openrouter-title'];
+    }
 
     const proxyReq = https.request(
       targetUrl,
       {
         method: req.method || 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-        },
+        headers: proxyHeaders,
       },
       (proxyRes) => {
         res.writeHead(proxyRes.statusCode || 500, {
@@ -80,7 +109,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Serve static files
   let filePath = parsedUrl.pathname === '/' ? '/index.html' : parsedUrl.pathname;
   filePath = path.join(ROOT_DIR, filePath);
 
@@ -106,6 +134,6 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
   console.log('');
-  console.log('API proxy: /minimax-anthropic/* will be forwarded to MiniMax API');
+  console.log('API proxy: /anthropic/* and /openrouter/* will be forwarded to OpenRouter');
   console.log('Press Ctrl+C to stop');
 });
